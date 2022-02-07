@@ -1,2 +1,2 @@
 # PyAutoDock
-A auto generate dock for python. 
+A auto generate documentation for python script. 
