@@ -1,5 +1,5 @@
-from pyAutoDockParser import Parser
-from pdf import Pdf
+from src.pyAutoDockParser import Parser
+from src.markdown import MarkDown
 
 
 def get_lines(filename: str) -> list[str]:
@@ -8,12 +8,12 @@ def get_lines(filename: str) -> list[str]:
 
 
 if __name__ == '__main__':
-    filename = "/home/hugo/Bureau/Wordle/src/game.py"
+    filename = ""
     lines = get_lines(filename)
 
     parser = Parser(lines)
     parser.parse()
 
-    pdf = Pdf("Documentation.pdf")
-    pdf.add_functions(parser.node_functions)
-    pdf.save_pdf()
+    markdown = MarkDown("AutoDock.md")
+    markdown.add_freestanding_functions(parser.node_functions)
+    markdown.save()

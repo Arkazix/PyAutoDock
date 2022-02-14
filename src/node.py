@@ -9,9 +9,8 @@ class NodeComment:
 
 class NodeFunction:
 
-    def __init__(self, function_name: str, NodeComment: NodeComment) -> None:
+    def __init__(self, function_name: str, function_parameter: str, NodeComment: NodeComment, is_in_class=False) -> None:
         self.function_name = function_name
+        self.function_parameter = function_parameter
         self.node_comment = NodeComment
-
-    def __str__(self) -> str:
-        return f"func name: {self.function_name}\n\n" + str(self.node_comment)
+        self.is_in_class = is_in_class

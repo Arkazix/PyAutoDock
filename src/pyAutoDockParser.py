@@ -1,5 +1,5 @@
 import re
-from node import NodeFunction, NodeComment
+from src.node import NodeFunction, NodeComment
 
 
 class Parser:
@@ -14,13 +14,14 @@ class Parser:
         while current_line_index < len(self.text):
             current_line = self.text[current_line_index]
             re_function = re.findall("def", current_line)
-
             if re_function:
                 indent = self.get_indent(current_line)
                 current_line_index += 1
                 node_comment = self.read_comment(current_line_index, indent)
                 self.node_functions.append(NodeFunction(
-                    self.get_func_name(current_line), node_comment)
+                    self.get_func_name(current_line),
+                    self.get_func_parameter(current_line), 
+                    node_comment)
                 )
 
             current_line_index += 1
@@ -51,4 +52,9 @@ class Parser:
     def get_func_name(self, line: str) -> str:
         start = line.find("def ") + len("def ")
         end = line.find("(")
+        return line[start:end]
+
+    def get_func_parameter(self, line: str) -> str:
+        start = line.find("(")
+        end = line.rfind(":")
         return line[start:end]
