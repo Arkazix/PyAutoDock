@@ -14,3 +14,8 @@ class NodeFunction:
         self.function_parameter = function_parameter
         self.node_comment = NodeComment
         self.is_in_class = is_in_class
+
+class NodeClass:
+    def __init__(self, class_name: str, functions: list[NodeFunction]) -> None:
+        self.class_name = class_name
+        self.functions = functions 

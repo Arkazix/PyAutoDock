@@ -1,4 +1,4 @@
-from src.node import NodeFunction, NodeComment
+from src.node import NodeClass, NodeFunction, NodeComment
 
 
 class MarkDown:
@@ -7,6 +7,7 @@ class MarkDown:
         self.filename = filename
         self.text = ""
 
+    # REQUETES
     def get_func_title(self, func: NodeFunction) -> str:
         """Return title bound to function func."""
         title = func.function_name.capitalize()
@@ -30,10 +31,13 @@ class MarkDown:
             func_desc = func_desc + " ".join(desc.split()) + new_line
         return func_desc
 
+    # COMMANDES
     def add_freestanding_function(self, node_function: NodeFunction) -> None:
         func_title = self.get_func_title(node_function)
         func_parameter = self.get_func_parameter(node_function)
         func_desc = self.get_func_desc(node_function.node_comment)
+        if func_desc == "":
+            return
 
         self.text += '\t\t<div style="background-color: white;'\
                      'color: #404040;border: 1px solid grey;' \
@@ -48,11 +52,11 @@ class MarkDown:
                      'color:#E5E6D3;padding-left:5px;padding-right:5px;' \
                      'display: inline-block;border: 2px solid black;' \
                      f'border-radius:5px">\n\t\t\t\t{func_title + func_parameter}\n'
-        self.text += '\t\t\t</div>\n' 
+        self.text += '\t\t\t</div>\n'
 
         self.text += '\t\t\t<p style="color:black;word-break:break-word;' \
                      f'margin-top:10px;">{func_desc}</p>\n'
-         
+
         self.text += '\t\t</div>\n'
 
     def add_freestanding_functions(self, node_functions: list[NodeFunction]) -> None:
@@ -64,6 +68,17 @@ class MarkDown:
                 self.add_freestanding_function(node_function)
         self.text = self.text + '\t</li>\n'
         self.text = self.text + '</ul>\n'
+
+    def add_class(self, node_class: list[NodeClass]) -> None:
+
+        for class_ in node_class:
+            self.text += f'<h1 style="color:#FFF;">Class: {class_.class_name}</h1>\n'
+            self.text += '<ul style="list-style-type: none;">\n'
+            self.text += '\t<li>\n'
+            for node_function in class_.functions:
+                self.add_freestanding_function(node_function)
+            self.text = self.text + '\t</li>\n'
+            self.text = self.text + '</ul>\n'
 
     def save(self):
         with open(self.filename, "w") as f:

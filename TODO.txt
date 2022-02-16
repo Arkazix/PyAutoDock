@@ -1,3 +1,3 @@
-[X] Add name of the current class if functions are in a class.
 [X] Handle todo instruction.
-
+[X] Check if def line is a function.
+[X] Handle html file with css file.
