@@ -1,3 +1,6 @@
+from typing import List
+
+
 class NodeComment:
 
     def __init__(self, text: str) -> None:
@@ -16,6 +19,6 @@ class NodeFunction:
         self.is_in_class = is_in_class
 
 class NodeClass:
-    def __init__(self, class_name: str, functions: list[NodeFunction]) -> None:
+    def __init__(self, class_name: str, functions: List[NodeFunction]) -> None:
         self.class_name = class_name
         self.functions = functions 

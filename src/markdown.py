@@ -1,5 +1,5 @@
 from src.node import NodeClass, NodeFunction, NodeComment
-
+from typing import List
 
 class MarkDown:
 
@@ -59,7 +59,7 @@ class MarkDown:
 
         self.text += '\t\t</div>\n'
 
-    def add_freestanding_functions(self, node_functions: list[NodeFunction]) -> None:
+    def add_freestanding_functions(self, node_functions: List[NodeFunction]) -> None:
         self.text += '<h1 style="color:#FFF;">Freestanding functions</h1>\n'
         self.text += '<ul style="list-style-type: none;">\n'
         self.text += '\t<li>\n'
@@ -69,7 +69,7 @@ class MarkDown:
         self.text = self.text + '\t</li>\n'
         self.text = self.text + '</ul>\n'
 
-    def add_class(self, node_class: list[NodeClass]) -> None:
+    def add_class(self, node_class: List[NodeClass]) -> None:
 
         for class_ in node_class:
             self.text += f'<h1 style="color:#FFF;">Class: {class_.class_name}</h1>\n'

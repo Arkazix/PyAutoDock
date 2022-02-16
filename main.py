@@ -1,8 +1,9 @@
 from src.pyAutoDockParser import Parser
 from src.markdown import MarkDown
+from typing import List
 
 
-def get_lines(filename: str) -> list[str]:
+def get_lines(filename: str) -> List[str]:
     with open(filename, "r") as f:
         return f.readlines()
 
