@@ -1,6 +1,6 @@
+from src.node import NodeClass, NodeFunction, NodeComment
 from typing import Union
 import re
-from src.node import NodeClass, NodeFunction, NodeComment
 
 
 class Parser:
@@ -42,8 +42,7 @@ class Parser:
         indent = self.get_indent(self.text[line_index])
         line_index += 1
         current_line = self.text[line_index]
-
-        while line_index < len(self.text) \
+        while line_index < len(self.text) - 1 \
                 and (self.get_indent(current_line) > indent
                      or len(self.replaces(current_line, to_replace)) == 0):
             re_function = re.findall("def", current_line)
