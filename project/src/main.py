@@ -1,6 +1,22 @@
 from .code_analyzer.code_analyzer import CodeAnalyzer
 from .command_line_args import CommandLineArgs
-import ast
+from typing import Union, List, Dict
+from pathlib import Path
+
+
+def analyze_files(path: Path) -> List[CodeAnalyzer]:
+    """Analyze file / files for the given path."""
+    analyze_files: List[CodeAnalyzer] = []
+    if path.is_dir():
+        analyze_files.extend(
+            CodeAnalyzer(child) for child in path.iterdir()
+            if child.is_file() and child.suffix == '.py'
+        )
+    elif path.is_file() and path.suffix == '.py':
+        analyze_files.append(CodeAnalyzer(path))
+    for analyze_file in analyze_files:
+        analyze_file.analyze_file()
+    return analyze_files
 
 
 def main() -> None:
@@ -14,11 +30,4 @@ def main() -> None:
     )
     args_handler.parse_args()
 
-    code_analyzer = CodeAnalyzer(args_handler.get_input_path())
-    code_analyzer.analyze()
-
-    for func in code_analyzer.get_functions():
-        print(code_analyzer.get_func_info(func))
-
-    for cls in code_analyzer.get_classes():
-        print(code_analyzer.get_class_info(cls))
+    analyze_codes = analyze_files(args_handler.get_input_path())
